@@ -32,30 +32,30 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs {
-        create("release"){
-            storeFile = file(keystoreProperties["storeFile"] as String)
-            storePassword = keystoreProperties["storePassword"] as String
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-        }
-    }
+//    signingConfigs {
+//        create("release"){
+//            storeFile = file(keystoreProperties["storeFile"] as String)
+//            storePassword = keystoreProperties["storePassword"] as String
+//            keyAlias = keystoreProperties["keyAlias"] as String
+//            keyPassword = keystoreProperties["keyPassword"] as String
+//        }
+//    }
 
     firebaseCrashlytics {
         mappingFileUploadEnabled = true
     }
 
     buildTypes {
-        release {
-            signingConfig = signingConfigs.getByName("release")
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-            isDebuggable = false
-        }
+//        release {
+//            signingConfig = signingConfigs.getByName("release")
+//            isMinifyEnabled = true
+//            isShrinkResources = true
+//            proguardFiles(
+//                getDefaultProguardFile("proguard-android-optimize.txt"),
+//                "proguard-rules.pro"
+//            )
+//            isDebuggable = false
+//        }
 
 
         debug {
