@@ -33,3 +33,6 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# Claude Code local settings (keep personal settings out of version control)
+.claude/settings.local.json
