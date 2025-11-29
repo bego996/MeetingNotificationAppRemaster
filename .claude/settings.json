@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "deny": [
+      "**/build/**",
+      "**/.gradle/**",
+      "**/keystore.properties",
+      "**/*.jks",
+      "**/*.keystore",
+      "**/.idea/**",
+      "**/local.properties",
+      "**/.git/**"
+    ]
+  },
+  "context": {
+    "alwaysInclude": [
+      "CLAUDE.md",
+      "app/build.gradle.kts",
+      "gradle.properties"
+    ]
+  }
+}
