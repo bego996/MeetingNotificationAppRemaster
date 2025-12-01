@@ -178,3 +178,78 @@ The app supports German and English. String resources follow standard Android i1
 
 5. **Package Structure:** All code lives under `com.simba.meetingnotification.ui` even though some files (like data layer) aren't UI-related.
 - Du sprichst mit mir nur auf deutsch.
+
+---
+
+## 📋 TODO: Verbleibende Test-Implementierung
+
+### ✅ Phase 1: UI & Integration Tests (Abgeschlossen)
+- [x] HomeScreenTest.kt (12 Tests)
+- [x] ContactCheckBeforeSubmitTest.kt (11 Tests)
+- [x] ContactsScreenTest.kt (9 Tests)
+- [x] ContactsSearchScreenTest.kt (18 Tests)
+- [x] ContactCreationFlowTest.kt (10 Integration Tests)
+- [x] SmsFlowIntegrationTest.kt (13 Integration Tests)
+- **Gesamt Phase 1: 73 Tests ✅**
+
+### 🔲 Phase 2: Instrumented Tests (4 Dateien)
+
+#### 1. MonthlyEventDbCleanerInstrumentedTest.kt
+- [ ] Testet WeeklyEventDbUpdater BroadcastReceiver
+- [ ] Überprüft automatisches Löschen alter/abgelaufener Events
+- [ ] Verifiziert Datenbankbereinigung nach BOOT_COMPLETED
+- [ ] Testet Query-Logik für expired events
+
+#### 2. NotificationHelperInstrumentedTest.kt
+- [ ] Testet NotificationHelper.showWeeklyReminder()
+- [ ] Verifiziert Notification Channel Erstellung
+- [ ] Prüft Notification Content (Titel, Text, Icons)
+- [ ] Testet verschiedene Event-Counts (0, 1, mehrere)
+
+#### 3. ContactsProviderTest.kt
+- [ ] Testet System-Kontakt Zugriff via ContentResolver
+- [ ] Verifiziert loadContacts() aus ContactsSearchScreenViewModel
+- [ ] Prüft Kontakt-Parsing (Name, Telefon, Titel, Geschlecht)
+- [ ] Testet Fehlerbehandlung bei fehlenden/ungültigen Feldern
+
+#### 4. CalendarProviderTest.kt
+- [ ] Testet Kalender-Integration via CalendarContract
+- [ ] Verifiziert loadCalender() aus ContactsSearchScreenViewModel
+- [ ] Prüft Event-Queries (Datum-Filter, 7-Tage-Fenster)
+- [ ] Testet Event-Parsing (Datum, Zeit, Titel)
+
+---
+
+### 🔲 Phase 3: Edge Cases & DataStore Tests
+
+#### 1. Edge Cases zu bestehenden Tests hinzufügen:
+- [ ] **Null/Empty Strings:** Leere Kontaktnamen, Messages, Telefonnummern
+- [ ] **Sehr lange Texte:** 1000+ Zeichen in Messages, extrem lange Namen
+- [ ] **Ungültige Daten:** Falsche Datumsformate, negative IDs, ungültige Telefonnummern
+- [ ] **Grenzwerte:** contactId = 0, MaxInt, sehr weit in Zukunft liegende Daten (Jahr 9999)
+- [ ] **Gleichzeitige Zugriffe:** Mehrere Threads schreiben/lesen gleichzeitig aus DB
+- [ ] **Duplikate:** Versuche denselben Contact mehrfach einzufügen
+- [ ] **Orphan-Daten:** Events ohne Contact (Foreign Key Test)
+
+#### 2. DataStore Integration Tests:
+- [ ] **BackgroundImageManagerRepositoryIntegrationTest.kt**
+  - Echtes DataStore verwenden (kein Mock)
+  - Preferences schreiben, lesen, updaten
+  - Mehrere schnelle Änderungen hintereinander
+
+- [ ] **InstructionReadRepositoryIntegrationTest.kt**
+  - Boolean-Flag setzen und auslesen
+  - Persistenz über App-Neustart simulieren
+
+#### 3. Performance/Stress Tests (optional):
+- [ ] 1000+ Kontakte in Datenbank einfügen und laden
+- [ ] Scrolling-Performance mit großen Listen testen
+- [ ] 100+ SMS-Queue-Operationen nacheinander
+- [ ] Event-Queries mit 1000+ Events
+
+---
+
+### 🎯 Nächster Schritt beim Weitermachen:
+Einfach sagen: **"Starte mit Phase 2"** und Claude beginnt mit `MonthlyEventDbCleanerInstrumentedTest.kt`
+
+**Aktueller Status:** Phase 1 ✅ (73 Tests) | Phase 2 ⏳ (4 Dateien) | Phase 3 ⏳ (3 Bereiche)
