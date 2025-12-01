@@ -1,0 +1,42 @@
+# Android Build-Artefakte
+build/
+.gradle/
+.idea/
+*.iml
+local.properties
+
+# Generated Code
+**/generated/
+**/*.generated.kt
+**/build/
+app/build/
+
+# Gradle
+.gradle/
+gradle/
+gradlew
+gradlew.bat
+
+# Android Studio
+.idea/
+*.iml
+.DS_Store
+
+# Compiled files
+*.class
+*.dex
+*.ap_
+*.apk
+*.aab
+
+# Logs
+*.log
+
+# Git
+.git/
+
+# Temporary files
+*.swp
+*.swo
+*~
+.tmp/
