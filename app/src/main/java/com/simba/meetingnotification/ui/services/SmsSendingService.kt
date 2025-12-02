@@ -38,7 +38,7 @@ class SmsSendingService : Service() {                         // Dienst(Service)
     private lateinit var dateMessageSendRepository: DateMessageSendRepository
 
     private val serviceScope = CoroutineScope(Dispatchers.IO)
-    var messageQueue = ArrayDeque<SmsMessage>()               // Warteschlange für SMS-Nachrichten
+    private val messageQueue = ArrayDeque<SmsMessage>()       // Warteschlange für SMS-Nachrichten
     //endregion
 
     //region Companion object
@@ -121,6 +121,8 @@ class SmsSendingService : Service() {                         // Dienst(Service)
     }
 
     fun getContactsInSmsQueueWithId() : List<Int> = messageQueue.toList().map { contact -> contact.contactId}
+
+    fun getMessageQueue(): ArrayDeque<SmsMessage> = messageQueue
 
     fun removeContactFromQueue(contactId: Int){
         if (messageQueue.any { contactInQueue -> contactInQueue.contactId == contactId }){
