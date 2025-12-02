@@ -93,9 +93,14 @@ class ContactCheckBeforeSubmitViewModel(
         DebugUtils.logExecutionTime(TAG,"ZipDatesToContact()"){
             for (contact in contacts) {
                 dates.firstOrNull {
-                    it.eventName.split(" ")[0] == contact.firstName.split(" ")[0] && it.eventName.split(
-                        " "
-                    )[1] == contact.lastName                       // Prüft, ob ein Kalenderereignis zum Kontakt passt
+                    // Sichere Überprüfung mit Bounds-Check um IndexOutOfBoundsException zu vermeiden
+                    val eventParts = it.eventName.split(" ")
+                    val firstNameParts = contact.firstName.split(" ")
+
+                    eventParts.size >= 2 &&
+                    firstNameParts.isNotEmpty() &&
+                    eventParts[0] == firstNameParts[0] &&
+                    eventParts[1] == contact.lastName                       // Prüft, ob ein Kalenderereignis zum Kontakt passt
                 }
                     ?.let { date ->                                   // Wenn ein passendes Ereignis gefunden wird
                         listZipped.add(
