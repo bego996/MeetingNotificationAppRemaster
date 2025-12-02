@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity(), SmsSendingServiceInteractor {
     // Wird beim Stoppen der Aktivität aufgerufen
     override fun onStop() {
         super.onStop()
-        if (SmsSendingService.getInstance()?.messageQueue?.isEmpty() == true){
+        if (SmsSendingService.getInstance()?.getMessageQueue()?.isEmpty() == true){
             stopService(Intent(this,SmsSendingService::class.java))
             Log.d(TAG, "Service stopped in onStop() because queue was empty")
         }
@@ -179,7 +179,7 @@ class MainActivity : AppCompatActivity(), SmsSendingServiceInteractor {
         } else if (::smsService.isInitialized && action == ServiceAction.SendMessage) { //Action to Send Messages
             smsService.showMessageSendDialog(
                 this@MainActivity,
-                smsService.messageQueue.takeIf { it.isNotEmpty() }?.map { it.fullName }.toString()
+                smsService.getMessageQueue().takeIf { it.isNotEmpty() }?.map { it.fullName }.toString()
             ) { accepted ->
                 if (accepted) {
                     smsService.sendNextMessage(this@MainActivity)
